@@ -82,11 +82,11 @@ namespace Web.Models
         public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = "Phone is required")]
-        [Phone]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
-
+        
         [Required(ErrorMessage = "First Name is required")]
         [DisplayName("First Name")]
         [StringLength(160)]
@@ -106,7 +106,7 @@ namespace Web.Models
         public string City { get; set; }
 
         [Required(ErrorMessage = "Province is required")]
-        [StringLength(40)]
+        
         public string Province { get; set; }
 
         [Required(ErrorMessage = "Postal Code is required")]
