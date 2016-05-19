@@ -11,7 +11,7 @@ namespace Model.Concrete
 {
    public class EFDbContext : DbContext
     {
-        public EFDbContext() : base("EFDbContext")
+        public EFDbContext() : base("EfDbContext")
         {
         }
         public DbSet<Product> Products { get; set; }
