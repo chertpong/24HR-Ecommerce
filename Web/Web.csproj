@@ -264,7 +264,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\VisualStudio\ComponentBased\Model\Model.csproj">
+    <ProjectReference Include="..\Model\Model.csproj">
       <Project>{2f95df8c-be01-4408-8aaf-f3690c908135}</Project>
       <Name>Model</Name>
     </ProjectReference>

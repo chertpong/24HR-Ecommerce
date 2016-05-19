@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Tests", "Web.Tests\Web.Tests.csproj", "{1EFCE7D7-823B-4634-BEA7-4939282A68FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "..\..\..\..\VisualStudio\ComponentBased\Model\Model.csproj", "{2F95DF8C-BE01-4408-8AAF-F3690C908135}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{2F95DF8C-BE01-4408-8AAF-F3690C908135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
