@@ -23,7 +23,8 @@ namespace Model.Service
 
         public List<Product> SearchProductByTag(string productTag)
         {
-            var productList = _productRepository.GetAll().Where(p => p.Tags.Contains(productTag)).ToList<Product>();
+            var productList = _productRepository.GetAll()
+                .Where(p => HasTagName(p.Tags, productTag)).ToList();
             return productList;
         }
 
@@ -50,6 +51,11 @@ namespace Model.Service
         public void Delete(int id)
         {
             _productRepository.Delete(id);
+        }
+
+        private bool HasTagName(IEnumerable<Tag> tags,string name)
+        {
+            return tags.First(t => t.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) != null;
         }
     }
 }

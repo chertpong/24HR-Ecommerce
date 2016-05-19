@@ -18,9 +18,10 @@ namespace Model.Concrete
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Order> Orders{ get; set; }
+        public DbSet<SelectedProduct> SelectedProducts { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+       protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
         }

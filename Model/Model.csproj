@@ -80,6 +80,7 @@
     <Compile Include="Concrete\EFPostRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Concrete\EFTagRepository.cs" />
+    <Compile Include="Dto\ShoppingCart.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\Payment.cs" />
     <Compile Include="Entity\Post.cs" />
@@ -97,6 +98,14 @@
     <Compile Include="Migrations\201605190429580_update-shopping-cart.cs" />
     <Compile Include="Migrations\201605190429580_update-shopping-cart.Designer.cs">
       <DependentUpon>201605190429580_update-shopping-cart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605192031400_update-product.cs" />
+    <Compile Include="Migrations\201605192031400_update-product.Designer.cs">
+      <DependentUpon>201605192031400_update-product.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605192034097_update-post.cs" />
+    <Compile Include="Migrations\201605192034097_update-post.Designer.cs">
+      <DependentUpon>201605192034097_update-post.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,6 +133,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605190429580_update-shopping-cart.resx">
       <DependentUpon>201605190429580_update-shopping-cart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605192031400_update-product.resx">
+      <DependentUpon>201605192031400_update-product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605192034097_update-post.resx">
+      <DependentUpon>201605192034097_update-post.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
