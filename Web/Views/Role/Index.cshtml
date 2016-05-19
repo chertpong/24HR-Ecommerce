@@ -1,0 +1,64 @@
+﻿@model System.Collections.Generic.List<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+@{
+    ViewBag.Title = "Roles list";
+}
+
+<h2>Roles</h2>
+@if (!ViewBag.ErrorMessage.Equals(""))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> @ViewBag.ErrorMessage
+    </div>
+}
+@if (!ViewBag.SuccessMessage.Equals(""))
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Sucess!</strong> @ViewBag.SuccessMessage
+    </div>
+}
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Role</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var role in Model)
+    {
+        <tr>
+            <td>
+                @role.Id
+            </td>
+            <td>
+                @role.Name
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", "Role", new {id = role.Id}, new{ @class="btn btn-primary"})
+                <br/>
+                <br/>
+                @using (Html.BeginForm("Delete", "Role", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                    <input type="hidden" name="id" value=@role.Id/>
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" class="btn btn-danger"/>
+                }
+            </td>
+        </tr>
+
+
+    }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="role-actions__container pull-right">
+        <a href="/Role/Create" class="btn btn-primary">Create</a>
+        <a href="/Role/AddRoleToUser" class="btn btn-success">Add role to user</a>
+    </div>
+</div>
