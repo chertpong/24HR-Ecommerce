@@ -1,4 +1,5 @@
-﻿@model  Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+﻿@using Web.Models
+@model  Microsoft.AspNet.Identity.EntityFramework.IdentityRole
 
 @{
     ViewBag.Title = "Details";
@@ -13,14 +14,28 @@
         <thead>
             <tr>
                 <th>UserId</th>
+                <th>Username</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in Model.Users)
+            @foreach (ApplicationUser user in ViewBag.UserList)
             {
                 <tr>
                     <td>
-                        @user.UserId
+                        @user.Id
+                    </td>
+                    <td>
+                        @user.Email
+                    </td>
+                    <td>
+                        @using (Html.BeginForm("RemoveRoleFromUser", "Role", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                        {
+                            <input type="hidden" name="RoleName" value=@Model.Name />
+                            <input type="hidden" name="Username" value=@user.Email />
+                            @Html.AntiForgeryToken()
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        }
                     </td>
                 </tr>
 

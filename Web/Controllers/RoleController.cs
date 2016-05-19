@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Web.Infrastructure;
@@ -45,7 +46,28 @@ namespace Web.Controllers
         // GET: Role/Details/5
         public ActionResult Details(string id)
         {
-            return View(_context.Roles.Find(id));
+            try
+            {
+                var role = _context.Roles.Find(id);
+                var userList = new List<ApplicationUser>();
+                role.Users.ToList()
+                    .Select(u => u.UserId).ToList()
+                    .ForEach(userId =>
+                        userList.Add(
+                            _context.Users.First(
+                                u => u.Id.Equals(userId)
+                                )
+                            )
+                    );
+                ViewBag.UserList = userList;
+                return View(role);
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "Role not found";
+                return RedirectToAction("Index");
+            }
+            
         }
 
         // GET: Role/Create
@@ -92,25 +114,56 @@ namespace Web.Controllers
         [HttpGet]
         public ActionResult AddRoleToUser()
         {
-            ViewData["users"] = _context.Users.ToList();
-            ViewData["roles"] = _context.Roles.ToList();
-            return View();
+            var users = _context.Users.ToList();
+            var roles = _context.Roles.ToList();
+            return View(new RoleViewModels.ShowRolesAndUsersViewModels {Users = users, Roles = roles });
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddRoleToUser(RoleViewModels.AddRoleToUserViewModel model)
+        public ActionResult AddRoleToUser(RoleViewModels.AddRoleToUserViewModel model)
         {
-            var role = await this.RoleManager.FindByNameAsync(model.RoleName);
-            var user = await this.UserManager.FindByEmailAsync(model.Username);
-            System.Diagnostics.Debug.WriteLine(role.Name);
-            var result = await this.UserManager.AddToRolesAsync(user.Id, new string[] { role.Name });
+            var role = this.RoleManager.FindByName(model.RoleName);
+            var user = this.UserManager.FindByEmail(model.Username);
+   
+            var result = this.UserManager.AddToRoles(user.Id, new string[] { role.Name });
             if (result.Succeeded)
             {
                 TempData["SuccessMessage"] = "Add user " + model.Username + " to role " + role.Name + "success";
-                RedirectToAction("Index");
+                return RedirectToAction("Index");
             }
-            TempData["ErrorMessage"] = "Add user to role error";
-            return RedirectToAction("Index");
+            else {
+                TempData["ErrorMessage"] = "Add user to role error";
+                return RedirectToAction("Index");
+            }
+
+        }
+
+        [HttpPost]
+        public ActionResult RemoveRoleFromUser(RoleViewModels.RemoveRoleFromUserViewModel model)
+        {
+            var role = this.RoleManager.FindByName(model.RoleName);
+            var user = this.UserManager.FindByEmail(model.Username);
+
+            try
+            {
+                var result = this.UserManager.RemoveFromRoles(user.Id, new string[] {role.Name});
+                if (result.Succeeded)
+                {
+                    TempData["SuccessMessage"] = "Remove role " + role.Name + " from user " + model.Username + "success";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Remove role fail";
+                    return RedirectToAction("Index");
+                }
+            }
+            catch(Exception e)
+            {
+                TempData["ErrorMessage"] = "Remove role fail";
+                return RedirectToAction("Index");
+            }
+
         }
     }
 }
