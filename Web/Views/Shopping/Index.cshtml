@@ -29,46 +29,62 @@
         <th>Remove</th>
     </tr>
 
-@foreach (var item in Model.SelectedProducts) {
-    <tr>
-        <td>
-            @item.Product.Id
-        </td>
-        <td>
-            @item.Product.Name
-        </td>
-        <td>
-            @item.Price
-        </td>
-        <td>
-            @using (Html.BeginForm("UpdateShoppingCart", "Shopping", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-            @Html.AntiForgeryToken()
-            <input name="productId" type="hidden" value=@item.Product.Id />
-            <input name="amount" type="number" value=@item.Amount />
-            <br />
-            <br />
-            <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Update amount" />
-            </div>
-            }
-        </td>
-        <td>
-            @item.CalculatePrice
-        </td>
-        <td>
-            @using (Html.BeginForm("Delete", "Shopping", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <input name="productId" type="hidden" value=@item.Product.Id />
-                <br />
-                <br />
-                <div class="form-group">
-                    <input type="submit" class="btn btn-danger" value="Delete" />
-                </div>
-            }
-        </td>
-    </tr>
-}
-
+    @foreach (var item in Model.SelectedProducts)
+    {
+        <tr>
+            <td>
+                @item.Product.Id
+            </td>
+            <td>
+                @item.Product.Name
+            </td>
+            <td>
+                @item.Price
+            </td>
+            <td>
+                @using (Html.BeginForm("UpdateShoppingCart", "Shopping", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+                {
+                    @Html.AntiForgeryToken()
+                    <input name="productId" type="hidden" value=@item.Product.Id />
+                    <input name="amount" type="number" value=@item.Amount />
+                    <br/>
+                    <br/>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Update amount" />
+                    </div>
+                }
+            </td>
+            <td>
+                @item.CalculatePrice
+            </td>
+            <td>
+                @using (Html.BeginForm("Delete", "Shopping", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input name="productId" type="hidden" value=@item.Product.Id />
+                    <br />
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+                    </div>
+                }
+            </td>
+        </tr>
+    }
 </table>
+<div class="row">
+    <div class="col-xs-10">
+        
+        @{
+            var totalPrice = Model.SelectedProducts.Sum(selectedProduct => selectedProduct.CalculatePrice);
+        }
+        <span style="font-weight: bold">Total Price: </span>@totalPrice
+    </div>
+    <div class="col-xs-2">
+        @using (Html.BeginForm("Checkout", "Shopping", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Check out" class="btn btn-primary" />
+        }
+    </div>
+</div>

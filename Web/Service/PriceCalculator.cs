@@ -13,11 +13,15 @@ namespace Web.Service
             var isWholesale = HttpContext.Current.User.IsInRole("Wholesale");
             if (isWholesale)
             {
-                selectedProduct.Price = selectedProduct.Product.Price * (1 - WHOLESALE_DISCOUNT_RATE);
+                selectedProduct.Price = selectedProduct.Product.Price*(1 - WHOLESALE_DISCOUNT_RATE);
                 selectedProduct.CalculatePrice = selectedProduct.Price*selectedProduct.Amount;
             }
-            selectedProduct.Price = selectedProduct.Product.Price;
-            selectedProduct.CalculatePrice = selectedProduct.Price * selectedProduct.Amount;
+            else
+            {
+                selectedProduct.Price = selectedProduct.Product.Price;
+                selectedProduct.CalculatePrice = selectedProduct.Price * selectedProduct.Amount;
+            }
+           
         }
     }
 }

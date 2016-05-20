@@ -7,6 +7,7 @@ using Web.Service;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class ShoppingController : Controller
     {
         private readonly ShoppingCartService _shoppingCartService;
@@ -104,6 +105,12 @@ namespace Web.Controllers
                 TempData["ErrorMessage"] = "Remove product id:" + productId + " fail";
                 return RedirectToAction("Index");
             }
+        }
+        [Route("Shopping/Checkout")]
+        [HttpPost]
+        public ActionResult CheckOut()
+        {
+            return RedirectToRoute("Order/Index");
         }
     }
 }
