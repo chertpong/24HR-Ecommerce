@@ -6,35 +6,41 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet"  href="~/Content/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="~/Content/materialize.min.css">
+
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-findcond navbar-fixed-top" id="heigh0">
+        <div class="container" id="navdiv">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="#" id="findcon">BRAND</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Product", "Index", "Product")</li>
-                    @if (Request.IsAuthenticated)
-                    {
-                        <li>@Html.ActionLink("Shopping", "Index", "Shopping")</li>
-                    }
+            <div class="collapse navbar-collapse" id="navbar">
+                <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">Shopping</a></li>
+                <li><a href="#">Product</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">About</a></li>
                 </ul>
                 @Html.Partial("_LoginPartial")
+                <form  class="navbar-right search-form" id="margin0" role="search">
+
+                        <input id="margin0" type="text" class="form-control pull-right" style="background-color: #e5e5e5;" placeholder="Search">
+  
+                </form>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+    <div class="container body-content" id="bodydiv">
         @RenderBody()
         <hr />
         <footer>
@@ -45,5 +51,6 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/javascript" src="~/Scripts/materialize.min.js"></script>
 </body>
 </html>
