@@ -2,10 +2,10 @@
 {
     public enum OrderStatus
     {
-        PENDING,
-        CONFIRMED,
-        PAID,
-        SENT
+        PENDING = 1,
+        CONFIRMED = 2,
+        PAID = 3,
+        SENT = 4
 
     }
 }

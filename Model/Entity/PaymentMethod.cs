@@ -2,7 +2,7 @@
 {
     public enum PaymentMethod
     {
-        PAYPAL,
-        BANK_TRANSFER
+        PAYPAL = 1,
+        BANK_TRANSFER = 2
     }
 }

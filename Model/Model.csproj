@@ -94,17 +94,9 @@
     <Compile Include="Entity\SelectedProduct.cs" />
     <Compile Include="Entity\Tag.cs" />
     <Compile Include="Entity\TransportationType.cs" />
-    <Compile Include="Migrations\201605200946536_initial.cs" />
-    <Compile Include="Migrations\201605200946536_initial.Designer.cs">
-      <DependentUpon>201605200946536_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605201228193_update-order-user-id-to-name.cs" />
-    <Compile Include="Migrations\201605201228193_update-order-user-id-to-name.Designer.cs">
-      <DependentUpon>201605201228193_update-order-user-id-to-name.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605201303062_update-selected-product-id.cs" />
-    <Compile Include="Migrations\201605201303062_update-selected-product-id.Designer.cs">
-      <DependentUpon>201605201303062_update-selected-product-id.cs</DependentUpon>
+    <Compile Include="Migrations\201605201438519_init.cs" />
+    <Compile Include="Migrations\201605201438519_init.Designer.cs">
+      <DependentUpon>201605201438519_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -127,14 +119,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605200946536_initial.resx">
-      <DependentUpon>201605200946536_initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605201228193_update-order-user-id-to-name.resx">
-      <DependentUpon>201605201228193_update-order-user-id-to-name.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605201303062_update-selected-product-id.resx">
-      <DependentUpon>201605201303062_update-selected-product-id.cs</DependentUpon>
+    <Content Include="SQL\DeleteAllTable.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201605201438519_init.resx">
+      <DependentUpon>201605201438519_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

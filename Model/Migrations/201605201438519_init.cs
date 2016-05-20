@@ -3,7 +3,7 @@ namespace Model.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class initial : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -17,7 +17,7 @@ namespace Model.Migrations
                         Note = c.String(),
                         Status = c.Int(nullable: false),
                         TransportationType = c.Int(nullable: false),
-                        UserId = c.String(),
+                        Username = c.String(),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -42,14 +42,14 @@ namespace Model.Migrations
                         Amount = c.Int(nullable: false),
                         Price = c.Double(nullable: false),
                         CalculatePrice = c.Double(nullable: false),
-                        Order_Id = c.Int(),
-                        Product_Id = c.Int(),
+                        OrderId = c.Int(nullable: false),
+                        ProductId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Order", t => t.Order_Id)
-                .ForeignKey("dbo.Product", t => t.Product_Id)
-                .Index(t => t.Order_Id)
-                .Index(t => t.Product_Id);
+                .ForeignKey("dbo.Order", t => t.OrderId, cascadeDelete: true)
+                .ForeignKey("dbo.Product", t => t.ProductId, cascadeDelete: true)
+                .Index(t => t.OrderId)
+                .Index(t => t.ProductId);
             
             CreateTable(
                 "dbo.Product",
@@ -104,15 +104,15 @@ namespace Model.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SelectedProduct", "Product_Id", "dbo.Product");
+            DropForeignKey("dbo.SelectedProduct", "ProductId", "dbo.Product");
             DropForeignKey("dbo.TagProduct", "Product_Id", "dbo.Product");
             DropForeignKey("dbo.TagProduct", "Tag_Id", "dbo.Tag");
-            DropForeignKey("dbo.SelectedProduct", "Order_Id", "dbo.Order");
+            DropForeignKey("dbo.SelectedProduct", "OrderId", "dbo.Order");
             DropForeignKey("dbo.Payment", "Id", "dbo.Order");
             DropIndex("dbo.TagProduct", new[] { "Product_Id" });
             DropIndex("dbo.TagProduct", new[] { "Tag_Id" });
-            DropIndex("dbo.SelectedProduct", new[] { "Product_Id" });
-            DropIndex("dbo.SelectedProduct", new[] { "Order_Id" });
+            DropIndex("dbo.SelectedProduct", new[] { "ProductId" });
+            DropIndex("dbo.SelectedProduct", new[] { "OrderId" });
             DropIndex("dbo.Payment", new[] { "Id" });
             DropTable("dbo.TagProduct");
             DropTable("dbo.Post");

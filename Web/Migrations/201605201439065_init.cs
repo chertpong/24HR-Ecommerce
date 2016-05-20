@@ -3,7 +3,7 @@ namespace Web.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class init : DbMigration
     {
         public override void Up()
         {
@@ -35,6 +35,13 @@ namespace Web.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
+                        Firstname = c.String(),
+                        Lastname = c.String(),
+                        Address = c.String(),
+                        City = c.String(),
+                        Province = c.String(),
+                        PostalCode = c.String(),
+                        Country = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
