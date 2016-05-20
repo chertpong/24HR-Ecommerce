@@ -102,5 +102,28 @@ namespace Web.Service
                 throw e;
             }
         }
+
+        public bool RemoveProductFromShoppingCart(int productId)
+        {
+            try
+            {
+                var shoppingCart = GetShoppingCart();
+                var productInCart = shoppingCart.SelectedProducts.Find(s => s.Product.Id.Equals(productId));
+                if (productInCart == null)
+                {
+                    return false;
+                }
+
+                var selectedProduct = shoppingCart.SelectedProducts.Find(p => p.Product.Id.Equals(productId));
+                // Update amount
+                shoppingCart.SelectedProducts.Remove(selectedProduct);
+                HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

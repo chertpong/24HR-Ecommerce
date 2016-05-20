@@ -26,6 +26,7 @@
         <th>Price</th>
         <th>Amount</th>
         <th>Total price</th>
+        <th>Remove</th>
     </tr>
 
 @foreach (var item in Model.SelectedProducts) {
@@ -48,14 +49,24 @@
             <br />
             <br />
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
                     <input type="submit" class="btn btn-primary" value="Update amount" />
-                </div>
             </div>
             }
         </td>
         <td>
             @item.CalculatePrice
+        </td>
+        <td>
+            @using (Html.BeginForm("Delete", "Shopping", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <input name="productId" type="hidden" value=@item.Product.Id />
+                <br />
+                <br />
+                <div class="form-group">
+                    <input type="submit" class="btn btn-danger" value="Delete" />
+                </div>
+            }
         </td>
     </tr>
 }

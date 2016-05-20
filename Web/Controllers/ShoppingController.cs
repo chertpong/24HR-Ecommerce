@@ -36,7 +36,15 @@ namespace Web.Controllers
         {
             try
             {
-                _shoppingCartService.AddToShoppingCart(productId, amount);
+                var success = _shoppingCartService.AddToShoppingCart(productId, amount);
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "Add item to shoppingcart successfully";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Add item to fail";
+                }
                 return RedirectToAction("Index");
             }
             catch (Exception e)
@@ -54,7 +62,15 @@ namespace Web.Controllers
         {
             try
             {
-                _shoppingCartService.UpdateShoppingCart(productId, amount);
+                var success = _shoppingCartService.UpdateShoppingCart(productId, amount);
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "Update shoppingcart successfully";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Update shopping cart fail";
+                }
                 return RedirectToAction("Index");
             }
             catch(Exception e)
@@ -65,47 +81,28 @@ namespace Web.Controllers
             }
         }
 
-        // GET: Shopping/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Shopping/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Shopping/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: Shopping/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int productId)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                var success =_shoppingCartService.RemoveProductFromShoppingCart(productId);
+                if (success)
+                {
+                    TempData["SuccessMessage"] = "Remove product id:" + productId + " successfully";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Remove product id:" + productId + " fail";
+                }
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                TempData["ErrorMessage"] = "Remove product id:" + productId + " fail";
+                return RedirectToAction("Index");
             }
         }
     }
