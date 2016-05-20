@@ -58,14 +58,11 @@ namespace Web.Service
             else
             {
                 var selectedProduct = shoppingCart.SelectedProducts.Find(p => p.Product.Id.Equals(productId));
-                // Remove from list
-                shoppingCart.SelectedProducts.Remove(selectedProduct);
                 // Update amount
                 selectedProduct.Amount = amount;
                 // Calculate price
                 _priceCalculator.CalculateSelectedProduct(selectedProduct);
                 // Add back to list
-                shoppingCart.SelectedProducts.Add(selectedProduct);
             }
             HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
             return true;
@@ -84,21 +81,18 @@ namespace Web.Service
                     var selectedProduct = new SelectedProduct
                     {
                         Amount = amount,
-                        Product = product,
-                        CalculatePrice = product.Price * amount,
-                        Price = product.Price
+                        Product = product
                     };
+                    _priceCalculator.CalculateSelectedProduct(selectedProduct);
                     shoppingCart.SelectedProducts.Add(selectedProduct);
                 }
                 else
                 {
                     var selectedProduct = shoppingCart.SelectedProducts.Find(p => p.Product.Id.Equals(productId));
-                    // Remove from list
-                    shoppingCart.SelectedProducts.Remove(selectedProduct);
                     // Update amount
                     selectedProduct.Amount+= amount;
-                    // Add back to list
-                    shoppingCart.SelectedProducts.Add(selectedProduct);
+                    // Calculate price
+                    _priceCalculator.CalculateSelectedProduct(selectedProduct);
                 }
                 HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
                 return true;
