@@ -38,7 +38,7 @@ namespace Web.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(ProductViewModel model)
+        public ActionResult Create(ProductViewModels.ProductViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Web.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(ProductViewModel model)
+        public ActionResult Edit(ProductViewModels.ProductViewModel model)
         {
 
             if (ModelState.IsValid)

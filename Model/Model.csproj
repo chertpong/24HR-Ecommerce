@@ -83,6 +83,7 @@
     <Compile Include="Concrete\EFSelectedProductRepository.cs" />
     <Compile Include="Concrete\EFTagRepository.cs" />
     <Compile Include="Dto\CheckOutViewModel.cs" />
+    <Compile Include="Dto\ProductViewModels.cs" />
     <Compile Include="Dto\ShoppingCart.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\OrderStatus.cs" />

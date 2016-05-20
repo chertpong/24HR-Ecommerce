@@ -12,11 +12,12 @@ namespace Model.Concrete
    public  class EFOrderRepository : IOrderRepository
     {
         private readonly EFDbContext _context;
-
+        private bool _disposed;
 
         public EFOrderRepository(EFDbContext context)
         {
             this._context = context;
+            this._disposed = false;
 
         }
         public void Create(Order o)
@@ -53,6 +54,24 @@ namespace Model.Concrete
         {
             _context.Entry(o).State = EntityState.Modified;
             _context.SaveChanges();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            this._disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201605191839362_registermodel.Designer.cs">
       <DependentUpon>201605191839362_registermodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605200816471_update-order.cs" />
+    <Compile Include="Migrations\201605200816471_update-order.Designer.cs">
+      <DependentUpon>201605200816471_update-order.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -226,6 +230,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -279,8 +284,6 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Shopping\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605191839362_registermodel.resx">
       <DependentUpon>201605191839362_registermodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605200816471_update-order.resx">
+      <DependentUpon>201605200816471_update-order.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
