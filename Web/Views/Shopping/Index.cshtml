@@ -1,0 +1,63 @@
+﻿@model Model.Dto.ShoppingCart
+
+@{
+    ViewBag.Title = "My Shopping cart";
+}
+@if (!ViewBag.ErrorMessage.Equals(""))
+{
+    <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> @ViewBag.ErrorMessage
+    </div>
+}
+@if (!ViewBag.SuccessMessage.Equals(""))
+{
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Sucess!</strong> @ViewBag.SuccessMessage
+    </div>
+}
+<h2>My shopping cart</h2>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Product name</th>
+        <th>Price</th>
+        <th>Amount</th>
+        <th>Total price</th>
+    </tr>
+
+@foreach (var item in Model.SelectedProducts) {
+    <tr>
+        <td>
+            @item.Product.Id
+        </td>
+        <td>
+            @item.Product.Name
+        </td>
+        <td>
+            @item.Price
+        </td>
+        <td>
+            @using (Html.BeginForm("UpdateShoppingCart", "Shopping", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+            @Html.AntiForgeryToken()
+            <input name="productId" type="hidden" value=@item.Product.Id />
+            <input name="amount" type="number" value=@item.Amount />
+            <br />
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-primary" value="Update amount" />
+                </div>
+            </div>
+            }
+        </td>
+        <td>
+            @item.CalculatePrice
+        </td>
+    </tr>
+}
+
+</table>

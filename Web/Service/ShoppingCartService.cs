@@ -10,10 +10,11 @@ namespace Web.Service
     public class ShoppingCartService
     {
         private readonly ProductService _productService;
-
-        public ShoppingCartService(ProductService productService)
+        private readonly PriceCalculator _priceCalculator;
+        public ShoppingCartService(ProductService productService, PriceCalculator priceCalculator)
         {
             this._productService = productService;
+            this._priceCalculator = priceCalculator;
         }
 
         public ShoppingCart GetShoppingCart()
@@ -41,32 +42,70 @@ namespace Web.Service
 
         public bool UpdateShoppingCart(int productId, int amount)
         {
+            var shoppingCart = GetShoppingCart();
+            var productInCart = shoppingCart.SelectedProducts.Find(s => s.Product.Id.Equals(productId));
+            if (productInCart == null)
+            {
+                var product = _productService.GetById(productId);
+                var selectedProduct = new SelectedProduct
+                {
+                    Amount = amount,
+                    Product = product,
+                };
+                _priceCalculator.CalculateSelectedProduct(selectedProduct);
+                shoppingCart.SelectedProducts.Add(selectedProduct);
+            }
+            else
+            {
+                var selectedProduct = shoppingCart.SelectedProducts.Find(p => p.Product.Id.Equals(productId));
+                // Remove from list
+                shoppingCart.SelectedProducts.Remove(selectedProduct);
+                // Update amount
+                selectedProduct.Amount = amount;
+                // Calculate price
+                _priceCalculator.CalculateSelectedProduct(selectedProduct);
+                // Add back to list
+                shoppingCart.SelectedProducts.Add(selectedProduct);
+            }
+            HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
+            return true;
+            
+        }
+
+        public bool AddToShoppingCart(int productId, int amount)
+        {
             try
             {
                 var shoppingCart = GetShoppingCart();
-                if (shoppingCart.SelectedProducts.First(p => p.Id.Equals(productId)) == null)
+                var productInCart = shoppingCart.SelectedProducts.Find(s => s.Product.Id.Equals(productId));
+                if (productInCart == null)
                 {
                     var product = _productService.GetById(productId);
                     var selectedProduct = new SelectedProduct
                     {
                         Amount = amount,
                         Product = product,
-                        CalculatePrice = product.Price*amount,
+                        CalculatePrice = product.Price * amount,
                         Price = product.Price
                     };
                     shoppingCart.SelectedProducts.Add(selectedProduct);
                 }
                 else
                 {
-                    shoppingCart.SelectedProducts.First(p => p.Id.Equals(productId)).Amount = amount;
+                    var selectedProduct = shoppingCart.SelectedProducts.Find(p => p.Product.Id.Equals(productId));
+                    // Remove from list
+                    shoppingCart.SelectedProducts.Remove(selectedProduct);
+                    // Update amount
+                    selectedProduct.Amount+= amount;
+                    // Add back to list
+                    shoppingCart.SelectedProducts.Add(selectedProduct);
                 }
                 HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
-                throw;
+                throw e;
             }
         }
     }

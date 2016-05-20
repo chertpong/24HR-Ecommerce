@@ -2,6 +2,7 @@ using Model.Concrete;
 using Model.Repository;
 using Model.Service;
 using Web.Models;
+using Web.Service;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Web.App_Start.NinjectWebCommon), "Stop")]
@@ -76,6 +77,8 @@ namespace Web.App_Start
             kernel.Bind<TagService>().To<TagService>();
             kernel.Bind<IOrderRepository>().To<EFOderRepository>();
             kernel.Bind<OrderService>().To<OrderService>();
+            kernel.Bind<ShoppingCartService>().To<ShoppingCartService>();
+            kernel.Bind<PriceCalculator>().To<PriceCalculator>();
         }        
     }
 }
