@@ -42,7 +42,7 @@ namespace Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Product p = new Product {Name = model.Name,Price = model.Price,Amount = model.Amount};
+                Product p = new Product { Name = model.Name, Price = model.Price, Amount = model.Amount, Description = model.Description, Thumbnail = model.Thumbnail };
                 _productService.Create(p);
                 return RedirectToAction("Index", "Home");
             }
@@ -58,29 +58,35 @@ namespace Web.Controllers
 
         // POST: Product/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(ProductViewModel model)
         {
-            try
-            {
-                // TODO: Add update logic here
 
+            if (ModelState.IsValid)
+            {
+                Product p = new Product { Name = model.Name, Price = model.Price, Amount = model.Amount, Description = model.Description, Thumbnail = model.Thumbnail };
+                _productService.Update(p);
                 return RedirectToAction("Index");
             }
-            catch
+
+            else
             {
                 return View();
             }
+
+
         }
 
         // GET: Product/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            _productService.Delete(id);
+            return RedirectToAction("Index");
         }
+
 
         // POST: Product/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(FormCollection collection)
         {
             try
             {
