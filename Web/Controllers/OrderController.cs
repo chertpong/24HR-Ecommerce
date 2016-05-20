@@ -39,6 +39,8 @@ namespace Web.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult AdminIndex()
         {
+            ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"] ?? "";
             return View(_orderService.GetAll());
         }
 
@@ -94,7 +96,7 @@ namespace Web.Controllers
             catch
             {
                 TempData["ErrorMessage"] = "Delete order id: " + orderId + " fail";
-                return View();
+                return RedirectToAction("Index");
             }
         }
 

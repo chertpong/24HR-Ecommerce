@@ -277,6 +277,7 @@
     <Content Include="Views\Order\CheckOut.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\AdminIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
