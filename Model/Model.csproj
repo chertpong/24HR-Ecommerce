@@ -80,6 +80,7 @@
     <Compile Include="Concrete\EFPostRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
     <Compile Include="Concrete\EFTagRepository.cs" />
+    <Compile Include="Dto\ProductViewModel.cs" />
     <Compile Include="Dto\ShoppingCart.cs" />
     <Compile Include="Entity\Order.cs" />
     <Compile Include="Entity\Payment.cs" />

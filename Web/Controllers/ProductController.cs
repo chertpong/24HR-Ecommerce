@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Model.Dto;
+using Model.Entity;
 using Model.Service;
 
 namespace Web.Controllers
@@ -36,18 +38,16 @@ namespace Web.Controllers
 
         // POST: Product/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ProductViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
+                Product p = new Product {Name = model.Name,Price = model.Price,Amount = model.Amount};
+                _productService.Create(p);
+                return RedirectToAction("Index", "Home");
+            }
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return View(model);
         }
 
         // GET: Product/Edit/5
