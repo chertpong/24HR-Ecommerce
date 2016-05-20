@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Model.Dto;
+using Model.Entity;
+using Model.Service;
 using Web.Service;
 
 namespace Web.Controllers
@@ -11,8 +15,9 @@ namespace Web.Controllers
     public class ShoppingController : Controller
     {
         private readonly ShoppingCartService _shoppingCartService;
+        
 
-        public ShoppingController(ShoppingCartService shoppingCartService)
+        public ShoppingController(ShoppingCartService shoppingCartService, OrderService orderService)
         {
             this._shoppingCartService = shoppingCartService;
         }
@@ -105,12 +110,6 @@ namespace Web.Controllers
                 TempData["ErrorMessage"] = "Remove product id:" + productId + " fail";
                 return RedirectToAction("Index");
             }
-        }
-        [Route("Shopping/Checkout")]
-        [HttpPost]
-        public ActionResult CheckOut()
-        {
-            return RedirectToRoute("Order/Index");
         }
     }
 }

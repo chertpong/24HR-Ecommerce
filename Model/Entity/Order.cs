@@ -16,25 +16,12 @@ namespace Model.Entity
         public DateTime Created { get; set; }
         public DateTime Updated { get; set; }
         public string Note { get; set; }
-        public Payment Payment { get; set; }
-        public OderStatus Status { get; set; }
+        public OrderStatus Status { get; set; }
         public TransportationType TransportationType { get; set; }
-        public string UserId { get; set; }
+        public string Username { get; set; }
 
-    }
+        public virtual Payment Payment { get; set; }
+        public virtual List<SelectedProduct> SelectedProducts { get; set; } 
 
-    public enum OderStatus
-    {
-        PEDING,
-        CONFIRMED,
-        PAID,
-        SENT
-
-    }
-
-    public enum TransportationType
-    {
-        THAILAND_POST,
-        KERRY_EXPRESS
     }
 }

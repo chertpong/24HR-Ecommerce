@@ -8,7 +8,7 @@ using Model.Entity;
 
 namespace Model.Repository
 {
-    public interface IOrderRepository : IDisposable
+    public interface IOrderRepository
     {
         List<Order> GetAll();
         Order GetById(int id);

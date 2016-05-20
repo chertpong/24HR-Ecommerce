@@ -10,17 +10,13 @@ namespace Model.Entity
 {
   public class Payment
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ForeignKey("Order")]
         public int Id { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
         public bool Paid { get; set; }
         public string Attachment { get; set; }
+        public virtual Order Order { get; set; }
     }
 
-    public enum PaymentMethod
-    {
-        PAYPAL,
-        BANK_TRANSFER
-    }
+ 
 }

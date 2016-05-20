@@ -1,9 +1,9 @@
-namespace Model.Migrations
+namespace Web.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class updatepost : DbMigration
+    public partial class updateorder : DbMigration
     {
         public override void Up()
         {

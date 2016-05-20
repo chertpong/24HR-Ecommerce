@@ -7,13 +7,13 @@ namespace Model.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddPost : IMigrationMetadata
+    public sealed partial class updateorderuseridtoname : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddPost));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(updateorderuseridtoname));
         
         string IMigrationMetadata.Id
         {
-            get { return "201605151948326_AddPost"; }
+            get { return "201605201228193_update-order-user-id-to-name"; }
         }
         
         string IMigrationMetadata.Source

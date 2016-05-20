@@ -81,7 +81,7 @@
         <span style="font-weight: bold">Total Price: </span>@totalPrice
     </div>
     <div class="col-xs-2">
-        @using (Html.BeginForm("Checkout", "Shopping", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+        @using (Html.BeginForm("Checkout", "Order", FormMethod.Get, new {@class = "form-horizontal", role = "form"}))
         {
             @Html.AntiForgeryToken()
             <input type="submit" value="Check out" class="btn btn-primary" />

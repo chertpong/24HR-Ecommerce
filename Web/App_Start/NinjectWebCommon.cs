@@ -68,17 +68,27 @@ namespace Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<ApplicationDbContext>().To<ApplicationDbContext>();
+            kernel.Bind<EFDbContext>().To<EFDbContext>();
 
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
             kernel.Bind<ProductService>().To<ProductService>();
+
             kernel.Bind<IPostRepository>().To<EFPostRepository>();
             kernel.Bind<PostService>().To<PostService>();
+
             kernel.Bind<ITagRepository>().To<EFTagRepository>();
             kernel.Bind<TagService>().To<TagService>();
-            kernel.Bind<IOrderRepository>().To<EFOderRepository>();
+
+            kernel.Bind<IOrderRepository>().To<EFOrderRepository>();
             kernel.Bind<OrderService>().To<OrderService>();
+
             kernel.Bind<ShoppingCartService>().To<ShoppingCartService>();
             kernel.Bind<PriceCalculator>().To<PriceCalculator>();
-        }        
+
+            kernel.Bind<IPaymentRepository>().To<EFPaymentRepository>();
+
+            kernel.Bind<ISelectedProductRepository>().To< EFSelectedProductRepository>();
+
+        }
     }
 }

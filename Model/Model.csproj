@@ -76,42 +76,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Concrete\EFOderRepository.cs" />
+    <Compile Include="Concrete\EFOrderRepository.cs" />
+    <Compile Include="Concrete\EFPaymentRepository.cs" />
     <Compile Include="Concrete\EFPostRepository.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
+    <Compile Include="Concrete\EFSelectedProductRepository.cs" />
     <Compile Include="Concrete\EFTagRepository.cs" />
+    <Compile Include="Dto\CheckOutViewModel.cs" />
     <Compile Include="Dto\ShoppingCart.cs" />
     <Compile Include="Entity\Order.cs" />
+    <Compile Include="Entity\OrderStatus.cs" />
     <Compile Include="Entity\Payment.cs" />
+    <Compile Include="Entity\PaymentMethod.cs" />
     <Compile Include="Entity\Post.cs" />
     <Compile Include="Entity\Product.cs" />
     <Compile Include="Entity\SelectedProduct.cs" />
     <Compile Include="Entity\Tag.cs" />
-    <Compile Include="Migrations\201605020406017_AddProduct.cs" />
-    <Compile Include="Migrations\201605020406017_AddProduct.Designer.cs">
-      <DependentUpon>201605020406017_AddProduct.cs</DependentUpon>
+    <Compile Include="Entity\TransportationType.cs" />
+    <Compile Include="Migrations\201605200946536_initial.cs" />
+    <Compile Include="Migrations\201605200946536_initial.Designer.cs">
+      <DependentUpon>201605200946536_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605151948326_AddPost.cs" />
-    <Compile Include="Migrations\201605151948326_AddPost.Designer.cs">
-      <DependentUpon>201605151948326_AddPost.cs</DependentUpon>
+    <Compile Include="Migrations\201605201228193_update-order-user-id-to-name.cs" />
+    <Compile Include="Migrations\201605201228193_update-order-user-id-to-name.Designer.cs">
+      <DependentUpon>201605201228193_update-order-user-id-to-name.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201605190429580_update-shopping-cart.cs" />
-    <Compile Include="Migrations\201605190429580_update-shopping-cart.Designer.cs">
-      <DependentUpon>201605190429580_update-shopping-cart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605192031400_update-product.cs" />
-    <Compile Include="Migrations\201605192031400_update-product.Designer.cs">
-      <DependentUpon>201605192031400_update-product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605192034097_update-post.cs" />
-    <Compile Include="Migrations\201605192034097_update-post.Designer.cs">
-      <DependentUpon>201605192034097_update-post.cs</DependentUpon>
+    <Compile Include="Migrations\201605201303062_update-selected-product-id.cs" />
+    <Compile Include="Migrations\201605201303062_update-selected-product-id.Designer.cs">
+      <DependentUpon>201605201303062_update-selected-product-id.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IOrderRepository.cs" />
+    <Compile Include="Repository\IPaymentRepository.cs" />
     <Compile Include="Repository\IPostRepository.cs" />
     <Compile Include="Repository\IProductRepository.cs" />
+    <Compile Include="Repository\ISelectedProductRepository.cs" />
     <Compile Include="Repository\ITagRepository.cs" />
     <Compile Include="Service\OrderService.cs" />
     <Compile Include="Service\PostService.cs" />
@@ -122,23 +122,18 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605020406017_AddProduct.resx">
-      <DependentUpon>201605020406017_AddProduct.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605200946536_initial.resx">
+      <DependentUpon>201605200946536_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605151948326_AddPost.resx">
-      <DependentUpon>201605151948326_AddPost.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605201228193_update-order-user-id-to-name.resx">
+      <DependentUpon>201605201228193_update-order-user-id-to-name.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605190429580_update-shopping-cart.resx">
-      <DependentUpon>201605190429580_update-shopping-cart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605192031400_update-product.resx">
-      <DependentUpon>201605192031400_update-product.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605192034097_update-post.resx">
-      <DependentUpon>201605192034097_update-post.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605201303062_update-selected-product-id.resx">
+      <DependentUpon>201605201303062_update-selected-product-id.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

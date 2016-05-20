@@ -1,0 +1,33 @@
+﻿@model Model.Dto.CheckOutViewModel
+
+@{
+    ViewBag.Title = "Check out";
+}
+
+@using (Html.BeginForm("CheckOut", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <label for="note">Note</label>
+    <textarea id="note" class="form-control" name="note"></textarea>
+
+    <label class="form-control" for="attachment">Bank slip </label>
+    <input class="form-control"  id="attachment" type="text" name="attachment"/>
+
+    <label class="form-control"  for="paymentMethod">Payment method</label>
+    <select class="form-control"  id="paymentMethod"name="PaymentMethod">
+        <option value="PAYPAL">Paypal</option>
+        <option value="BANK_TRANSFER">Bank Transfer</option>
+    </select>
+    <label class="form-control"  for="transferType">Transfer service</label>
+    <select id="transferType" class="form-control"  name="TransportationType">
+        <option value="THAILAND_POST">Thailand Post</option>
+        <option value="KERRY_EXPRESS">Kerry Express</option>
+    </select>
+    <br />
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Proceed checkout" />
+        </div>
+    </div>
+}

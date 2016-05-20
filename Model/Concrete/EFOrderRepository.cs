@@ -9,15 +9,15 @@ using Model.Repository;
 
 namespace Model.Concrete
 {
-   public  class EFOderRepository : IOrderRepository,IDisposable
+   public  class EFOrderRepository : IOrderRepository
     {
         private readonly EFDbContext _context;
-        private bool _disposed;
 
-        public EFOderRepository(EFDbContext context)
+
+        public EFOrderRepository(EFDbContext context)
         {
             this._context = context;
-            this._disposed = false;
+
         }
         public void Create(Order o)
         {
@@ -32,10 +32,7 @@ namespace Model.Concrete
             _context.SaveChanges();
         }
 
-        public void Dispose()
-        {
-            
-        }
+       
 
         public List<Order> Find(Predicate<Order> function)
         {

@@ -11,13 +11,15 @@ namespace Model.Service
    public class OrderService
    {
        private readonly IOrderRepository _orderRepository;
+       private readonly ISelectedProductRepository _selectedProductRepository;
 
-       public OrderService(IOrderRepository orderRepository)
+       public OrderService(IOrderRepository orderRepository, ISelectedProductRepository selectedProductRepository)
        {
-           this._orderRepository = orderRepository;
+           _orderRepository = orderRepository;
+           _selectedProductRepository = selectedProductRepository;
        }
 
-        public void Create(Order o)
+       public void Create(Order o)
         {
             _orderRepository.Create(o);
         }
@@ -59,10 +61,27 @@ namespace Model.Service
             throw new NotImplementedException();
         }
 
-       public Order MakeOrder(List<SelectedProduct> selectedProducts ,string userId,TransportationType transportationType,Payment payment,string note)
+       public void MakeOrder(List<SelectedProduct> selectedProducts ,string username, TransportationType transportationType,Payment payment,string note)
        {
-            throw new NotImplementedException();
-        }
+
+            var order = new Order
+            {
+                Created = DateTime.Now,
+                Updated = DateTime.Now,
+                Note = note,
+                Payment = payment,
+                Username = username,
+                Status = OrderStatus.PENDING,
+            };
+            _orderRepository.Create(order);
+           foreach (var s in selectedProducts)
+           {
+               s.OrderId = order.Id;
+               s.ProductId = s.Product.Id;
+               s.Product = null;
+               _selectedProductRepository.Create(s);
+           }
+       }
 
     }
 }

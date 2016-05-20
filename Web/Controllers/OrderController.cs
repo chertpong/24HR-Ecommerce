@@ -3,19 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Model.Entity;
 using Model.Service;
+using Model.Dto;
+using Web.Service;
 
 namespace Web.Controllers
 {
     public class OrderController : Controller
     {
         private readonly OrderService _orderService;
+        private readonly ShoppingCartService _shoppingCartService;
 
-        public OrderController(OrderService orderService)
+        public OrderController(OrderService orderService, ShoppingCartService shoppingCartService)
         {
-            this._orderService = orderService;
+            _orderService = orderService;
+            _shoppingCartService = shoppingCartService;
         }
+
         // GET: Order
         public ActionResult Index()
         {
@@ -93,6 +99,42 @@ namespace Web.Controllers
             {
                 return View();
             }
+        }
+
+        [Route("Order/Checkout")]
+        [HttpGet]
+        public ActionResult CheckOut()
+        {
+            var checkoutDetail = Session["CheckoutDetail"] ?? new CheckOutViewModel();
+            ViewBag.CheckoutDetail = checkoutDetail;
+            return View(checkoutDetail);
+        }
+
+        [Route("Order/Checkout")]
+        [HttpPost]
+        public ActionResult CheckOut(CheckOutViewModel checkoutDetail)
+        {
+            Session["CheckoutDetail"] = checkoutDetail;
+
+            if (!ModelState.IsValid) return View(checkoutDetail);
+
+            if (checkoutDetail == null) return View("CheckOut");
+
+            var cart = _shoppingCartService.GetShoppingCart();
+            var payment = new Payment
+            {
+                Attachment = checkoutDetail.Attachment,
+                Paid = false,
+                PaymentMethod = checkoutDetail.PaymentMethod
+            };
+            _orderService.MakeOrder(
+                cart.SelectedProducts,
+                User.Identity.GetUserName(),
+                checkoutDetail.TransportationType,
+                payment,
+                checkoutDetail.Note
+            );
+            return RedirectToAction("Index");
         }
     }
 }
