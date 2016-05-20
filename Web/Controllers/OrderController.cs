@@ -11,6 +11,7 @@ using Web.Service;
 
 namespace Web.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly OrderService _orderService;
@@ -25,78 +26,74 @@ namespace Web.Controllers
         // GET: Order
         public ActionResult Index()
         {
+            ViewBag.ErrorMessage = TempData["ErrorMessage"] ?? "";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"] ?? "";
+
+            var orders = _orderService
+                                    .GetAll()
+                                    .Where(o => o.Username.Equals(User.Identity.GetUserName()))
+                                    .ToList();
+            return View(orders == null ? new List<Order>() : orders );
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult AdminIndex()
+        {
             return View(_orderService.GetAll());
         }
 
         // GET: Order/Details/5
         public ActionResult Details(int id)
         {
-            return View(_orderService.GetById(id));
-        }
-
-        // GET: Order/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Order/Create
-        [HttpPost]
-        public ActionResult Create(Order order)
-        {
-            try
+            var order = _orderService.GetById(id);
+            if (!order.Username.Equals(User.Identity.GetUserName()) || User.IsInRole("Admin"))
             {
-               _orderService.Create(order);
-
+                TempData["ErrorMessage"] = "Sorry, it's someone else people order";
                 return RedirectToAction("Index");
             }
-            catch
-            {
-                return View();
-            }
+            return View(order);
         }
 
         // GET: Order/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            return View();
+            var order = _orderService.GetById(id);
+            return View(order);
         }
 
         // POST: Order/Edit/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(Order order)
         {
             try
             {
+                order.Updated = DateTime.Now;
                 _orderService.Update(order);
-
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                TempData["ErrorMessage"] = "Update fail";
+                return View(order);
             }
-        }
-
-        // GET: Order/Delete/5
-        public ActionResult Delete(int id)
-        {
-            _orderService.Delete(id);
-            return RedirectToAction("Index");
         }
 
         // POST: Order/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        public ActionResult Delete(FormCollection collection)
+        public ActionResult Delete(int orderId)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _orderService.Delete(orderId);
+                TempData["SuccessMessage"] = "Delete order id: "+orderId+" success";
                 return RedirectToAction("Index");
             }
             catch
             {
+                TempData["ErrorMessage"] = "Delete order id: " + orderId + " fail";
                 return View();
             }
         }

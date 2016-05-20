@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Model.Dto;
@@ -21,7 +22,7 @@ namespace Web.Service
         {
             var shoppingCart = (ShoppingCart) HttpContext.Current.Session["ShoppingCart"];
             // New shopping cart if not exist
-            shoppingCart = shoppingCart ?? new ShoppingCart();
+            shoppingCart = shoppingCart ?? new ShoppingCart() {SelectedProducts = new List<SelectedProduct>()};
             // Save current shopping cart to session
             HttpContext.Current.Session["ShoppingCart"] = shoppingCart;
             return shoppingCart;

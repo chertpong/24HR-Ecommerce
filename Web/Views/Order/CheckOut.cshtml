@@ -7,19 +7,21 @@
 @using (Html.BeginForm("CheckOut", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <label for="note">Note</label>
-    <textarea id="note" class="form-control" name="note"></textarea>
-
-    <label class="form-control" for="attachment">Bank slip </label>
-    <input class="form-control"  id="attachment" type="text" name="attachment"/>
-
-    <label class="form-control"  for="paymentMethod">Payment method</label>
-    <select class="form-control"  id="paymentMethod"name="PaymentMethod">
+    <div class="form-group">
+        <label for="note">Note</label>
+        <textarea id="note" class="form-control" name="note"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="form-control" for="attachment">Bank slip </label>
+        <input class="form-control" id="attachment" type="text" name="attachment" />
+    </div>
+    <label class="form-control" for="paymentMethod">Payment method</label>
+    <select class="form-control" id="paymentMethod" name="PaymentMethod">
         <option value="PAYPAL">Paypal</option>
         <option value="BANK_TRANSFER">Bank Transfer</option>
     </select>
-    <label class="form-control"  for="transferType">Transfer service</label>
-    <select id="transferType" class="form-control"  name="TransportationType">
+    <label class="form-control" for="transferType">Transfer service</label>
+    <select id="transferType" class="form-control" name="TransportationType">
         <option value="THAILAND_POST">Thailand Post</option>
         <option value="KERRY_EXPRESS">Kerry Express</option>
     </select>
