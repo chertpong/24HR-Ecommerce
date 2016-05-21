@@ -26,17 +26,24 @@
             </div>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-left">
-                <li><a href="#">Shopping</a></li>
-                <li><a href="#">Product</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">About</a></li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-                <form  class="navbar-right search-form" id="margin0" role="search">
-
-                        <input id="margin0" type="text" class="form-control pull-right" style="background-color: #e5e5e5;" placeholder="Search">
-  
-                </form>
+                    <li><a href="~/Product">Product</a></li>
+                    @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
+                    {
+                        <li><a href="~/Shopping">Shopping</a></li>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li><a href="~/Order">Order</a></li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li><a href="~/Role">Manage role</a></li>
+                    }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+@*                <form  class="navbar-right search-form" id="search-form" role="search">
+                        <input id="search-form-input" type="text" class="form-control pull-right" style="background-color: #e5e5e5;" placeholder="Search">
+                </form> *@
             </div>
         </div>
     </nav>
