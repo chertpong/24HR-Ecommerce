@@ -31,7 +31,6 @@ namespace Model.Dto
             [Display(Name = "Amount")]
             public int Amount { get; set; }
 
-            public List<Tag> Tags { get; set; }
         }
     }
 }
