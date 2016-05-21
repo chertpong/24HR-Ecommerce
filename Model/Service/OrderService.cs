@@ -12,11 +12,13 @@ namespace Model.Service
    {
        private readonly IOrderRepository _orderRepository;
        private readonly ISelectedProductRepository _selectedProductRepository;
+       private readonly IPaymentRepository _paymentRepository;
 
-       public OrderService(IOrderRepository orderRepository, ISelectedProductRepository selectedProductRepository)
+       public OrderService(IOrderRepository orderRepository, ISelectedProductRepository selectedProductRepository, IPaymentRepository paymentRepository)
        {
            _orderRepository = orderRepository;
            _selectedProductRepository = selectedProductRepository;
+           _paymentRepository = paymentRepository;
        }
 
        public void Create(Order o)
@@ -46,7 +48,12 @@ namespace Model.Service
             return _orderRepository.GetById(id);
         }
 
-        public void Update(Order o)
+       public Order GetByPaymentId(int id)
+       {
+           return _paymentRepository.GetById(id).Order;
+       }
+
+       public void Update(Order o)
         {
             _orderRepository.Update(o);
         }
@@ -82,6 +89,12 @@ namespace Model.Service
                _selectedProductRepository.Create(s);
            }
        }
-
+        public void UpdatePaymentAttachment(int orderId, string attachment)
+        {
+            var order = _orderRepository.GetById(orderId);
+            var payment = _paymentRepository.GetById(order.Id);
+            payment.Attachment = attachment;
+            _paymentRepository.Update(payment);
+        }
     }
 }

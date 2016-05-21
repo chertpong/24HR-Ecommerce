@@ -18,94 +18,108 @@
     </div>
 }
 <h2>Orders</h2>
+<div class="table-responsive">
 
-<table class="table">
-    <tr>
-        <th>
-            Created date
-        </th>
-        <th>
-            Updated date
-        </th>
-
-        <th>
-            Username
-        </th>
-        <th>
-            Items
-        </th>
-        <th>
-            Amount
-        </th>
-        <th>
-            Total price
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-            Note
-        </th>
-        <th>
-            Actions
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Updated)
-            </td>
+            <th>
+                Created date
+            </th>
+            <th>
+                Updated date
+            </th>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-
-
-            <td>
-                @foreach (var selectedProduct in item.SelectedProducts)
-                {
-
-                    <span style="display: block; clear: left">@selectedProduct.Product.Name</span>
-                }
-            </td>
-            <td>
-                @foreach (var selectedProduct in item.SelectedProducts)
-                {
-                    <span style="display: block; clear: left">@selectedProduct.Amount</span>
-                }
-
-            </td>
-            @{
-                var totalPrice = item.SelectedProducts.Sum(selectedProduct => selectedProduct.CalculatePrice);
-            }
-            <td>
-                @totalPrice
-            </td>
-
-            <td>
-                @item.Status
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Note)
-            </td>
-            <td>
-                @if (User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                    <span>|</span>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                    <span>|</span>
-                }
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
-
-            </td>
+            <th>
+                Username
+            </th>
+            <th>
+                Items
+            </th>
+            <th>
+                Amount
+            </th>
+            <th>
+                Total price
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                Payment method
+            </th>
+            <th>
+                Slip (if any)
+            </th>
+            <th>
+                Note
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Created)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Updated)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+
+
+                <td>
+                    @foreach (var selectedProduct in item.SelectedProducts)
+                {
+
+                        <span style="display: block; clear: left">@selectedProduct.Product.Name</span>
+                    }
+                </td>
+                <td>
+                    @foreach (var selectedProduct in item.SelectedProducts)
+                {
+                        <span style="display: block; clear: left">@selectedProduct.Amount</span>
+                    }
+
+                </td>
+                @{
+                    var totalPrice = item.SelectedProducts.Sum(selectedProduct => selectedProduct.CalculatePrice);
                 }
+                <td>
+                    @totalPrice
+                </td>
 
-</table>
+                <td>
+                    @item.Status
+                </td>
+                <td>
+                    @item.Payment.PaymentMethod
+                </td>
+                <td>
+                    <img class="responsive-img" src="@item.Payment.Attachment" alt="" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Note)
+                </td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        <span>|</span>
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        <span>|</span>
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
 
+                </td>
+            </tr>
+                    }
+
+    </table>
+
+</div>
