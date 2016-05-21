@@ -27,7 +27,7 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav navbar-left">
                     <li><a href="~/Product">Product</a></li>
-                    @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
+                    @if (Request.IsAuthenticated)
                     {
                         <li><a href="~/Shopping">Shopping</a></li>
                         <li><a href="~/Order">Order</a></li>

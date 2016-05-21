@@ -101,7 +101,10 @@
                     @item.Payment.PaymentMethod
                 </td>
                 <td>
-                    <img class="responsive-img" src="@item.Payment.Attachment" alt="" />
+                    @{
+                    var imgUrl = "/Image/"+@item.Payment.Attachment;
+                    }
+                    <img class="responsive-img" src=@imgUrl alt=""/>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Note)

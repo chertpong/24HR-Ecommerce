@@ -6,7 +6,7 @@
 <h2>Upload slip</h2>
 
 
-@using (Html.BeginForm("UplodPaymentSlip", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("UplodPaymentSlip", "Order", FormMethod.Post, new { @class = "form-horizontal", role = "form",enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <hr />

@@ -10,11 +10,12 @@ namespace Web.Controllers
     public class ImageController : Controller
     {
         // GET: Image
-        public ActionResult Index(string imageName)
+        [Route("/Image/{id}")]
+        public ActionResult Index(int id)
         {
             // TODO : FIX SECURITY FLAW HERE!!
             var dir = Server.MapPath("~/Public/Images");
-            var path = Path.Combine(dir, imageName);
+            var path = Path.Combine(dir, Convert.ToString(id));
             return File(path, "image/jpeg");
         }
     }
