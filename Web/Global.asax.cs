@@ -21,6 +21,8 @@ namespace Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer<ApplicationDbContext>(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer<EFDbContext>(new NullDatabaseInitializer<EFDbContext>());
+
         }
     }
 }
