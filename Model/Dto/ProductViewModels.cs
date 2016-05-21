@@ -6,8 +6,11 @@ namespace Model.Dto
 {
     public class ProductViewModels
     {
+
         public class ProductViewModel
         {
+
+            
             public int Id { get; set; }
 
             [Required]
