@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Model.Entity;
 using Model.Service;
 using Model.Dto;
+using Model.Repository;
 using Web.Service;
 
 namespace Web.Controllers
@@ -134,6 +136,64 @@ namespace Web.Controllers
                 checkoutDetail.Note
             );
             return RedirectToAction("Index");
+        }
+
+        [Route("Order/UploadPaymentSlip/{id}")]
+        [HttpGet]
+        public ActionResult UplodPaymentSlip(int id)
+        {
+            return View(_orderService.GetByPaymentId(id).Payment);
+        }
+
+        [Route("Order/UploadPaymentSlip")]
+        [HttpPost]
+        public ActionResult UplodPaymentSlip(HttpPostedFileBase upload, int id)
+        {
+            const string imagePath = "~/Public/Images";
+            string fileName = null;
+
+            try
+            {
+                var order = _orderService.GetByPaymentId(id);
+                if (!order.Username.Equals(User.Identity.GetUserName()))
+                {
+                    TempData["ErrorMessage"] = "You attempt to change someone else's payment slip";
+                    return RedirectToAction("Index");
+                }
+
+                if (upload != null && upload.ContentLength > 0)
+                {
+
+                    using (var reader = new System.IO.BinaryReader(upload.InputStream))
+                    {
+                        byte[] content = reader.ReadBytes(upload.ContentLength);
+                        string timestamp = DateTime.Now.ToString("HH:mm:ss.fff",
+                            System.Globalization.DateTimeFormatInfo.InvariantInfo);
+                        string name = upload.FileName + timestamp;
+                        string ext = Path.GetExtension(upload.FileName);
+                        fileName = name.GetHashCode() + ext;
+                        string path = Path.Combine(Server.MapPath(imagePath), fileName);
+                        upload.SaveAs(path);
+                    }
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Upload slip fail, no file specified";
+                    return RedirectToAction("UplodPaymentSlip", new {id = id});
+                }
+
+                order.Payment.Attachment = fileName;
+                _orderService.UpdatePaymentAttachment(order.Id, fileName);
+                TempData["SuccessMessage"] = "Upload slip success";
+                return RedirectToAction("Index");
+            }
+            catch (Exception e)
+            {
+                TempData["ErrorMessage"] = "Upload slip fail";
+                return RedirectToAction("Index");
+            }
+            
+           
         }
     }
 }

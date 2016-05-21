@@ -3,17 +3,34 @@
     ViewBag.Title = "Add role to user";
 }
 
-<h2>AddRoleToUser</h2>
-@using (Html.BeginForm("AddRoleToUser", "Role", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<h2>Add Role To User</h2>
+@using (Html.BeginForm("AddRoleToUser", "Role", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
 {
     @Html.AntiForgeryToken()
-    @Html.DropDownList("RoleName", new SelectList(Model.Roles, "Name", "Name"), "Roles")
-    @Html.DropDownList("Username", new SelectList(Model.Users, "Username", "Username"), "Users")
+    <div class="input-field col s12">
+        <select name="RoleName" style="display: block">
+            <option value="" disabled selected>Roles</option>
+            @foreach (var role in Model.Roles)
+            {
+                <option value=@role.Name>@role.Name</option>
+            }
+        </select>
+    </div>
+    <div class="input-field col s12">
+        <select name="Username" style="display: block">
+            <option value="" disabled selected>Users</option>
+            @foreach (var user in Model.Users)
+            {
+                <option value=@user.UserName>@user.UserName</option>
+            }
+        </select>
+    </div>
+
     <br/>
     <br/>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary" value="Add role to user" />
+            <input type="submit" class="btn btn-primary" value="Add role to user"/>
         </div>
     </div>
 }

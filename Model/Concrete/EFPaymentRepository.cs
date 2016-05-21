@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using System.Linq.Expressions;
 using Model.Entity;
 using Model.Repository;
@@ -17,12 +19,12 @@ namespace Model.Concrete
 
         public List<Payment> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Payments.ToList();
         }
 
         public Payment GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Payments.Find(id);
         }
 
         public void Create(Payment payment)
@@ -33,17 +35,19 @@ namespace Model.Concrete
 
         public void Update(Payment payment)
         {
-            throw new NotImplementedException();
+            _context.Entry(payment).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var payment = _context.Payments.Find(id);
+            _context.Payments.Remove(payment);
         }
 
-        public List<Post> Find(Expression<Func<Payment, bool>> predicate)
+        public List<Payment> Find(Expression<Func<Payment, bool>> predicate)
         {
-            throw new NotImplementedException();
+            return _context.Payments.Where(predicate.Compile()).ToList();
         }
     }
 }
