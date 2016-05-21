@@ -30,13 +30,11 @@
                     @if (Request.IsAuthenticated && !User.IsInRole("Admin"))
                     {
                         <li><a href="~/Shopping">Shopping</a></li>
-                    }
-                    @if (Request.IsAuthenticated)
-                    {
                         <li><a href="~/Order">Order</a></li>
                     }
                     @if (User.IsInRole("Admin"))
                     {
+                        <li><a href="~/Order/AdminIndex">Order</a></li>
                         <li><a href="~/Role">Manage role</a></li>
                     }
                     </ul>
